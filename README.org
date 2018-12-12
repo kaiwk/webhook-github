@@ -1,0 +1,9 @@
+#+TITLE: webhook-github
+
+usage:
+#+BEGIN_SRC sh
+  sudo docker run --rm \
+       -e GITHUB_WEBHOOK_SECRET=secret \
+       -e GITHUB_REPO_LOCAL_PATH=project-path \
+       -p 8000:8000 webhook-github
+#+END_SRC
