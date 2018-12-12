@@ -3,7 +3,7 @@ import sys
 import hmac
 import logging
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from git import Repo
 
 app = Flask(__name__)
@@ -33,7 +33,7 @@ def handle_github_hook():
     signature = request.headers.get('X-Hub-Signature')
     _, signature = signature.split('=')
 
-    hashhex = hmac.new(secret, request.data, digestmod='sha1').hexdigest()
+    hashhex = hmac.new(secret.encode(), request.data, digestmod='sha1').hexdigest()
 
     if hmac.compare_digest(hashhex, signature):
         repo = Repo(repo_path)
